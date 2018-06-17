@@ -13,5 +13,8 @@
 		"maxAge":2509600000,
 		"sessionMaxAge":86400000,
 		"sessionName":"India"
+	},
+	"log":{
+		"level":"debug"
 	}
 }

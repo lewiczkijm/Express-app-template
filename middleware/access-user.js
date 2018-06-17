@@ -4,9 +4,18 @@
 */
 var cookies = require('cookies')
 var config = require('../config')
+var log4js = require('log4js')
+
+var config = require('../config')
 var User = require('../models/User')
 const rules = require('./rules')
 var createError = require('http-errors')
+
+
+//logger
+var logger = log4js.getLogger('middleware/access-user')
+logger.level = config.get('log:level')
+
 
 module.exports = async function(req, res, next) {
 	let session = req.cookies.get(config.get('user:sessionName'))
@@ -14,9 +23,12 @@ module.exports = async function(req, res, next) {
 	if(session === undefined) session = ''
 	try{
 		user = await User.access(session)
-		// res.cookies.set("My","{a:1}",{path:"/",httpOnly:true,maxAge: 1000})
+		
+		logger.debug(`user: ${user.name}`)
+
 	}catch(err){
 		if(err.message === 'User not found'){
+			logger.debug(`anonimous`)
 		}
 	}
 
@@ -31,6 +43,7 @@ module.exports = async function(req, res, next) {
 
 	req.user = user
 	req.access = access
+
 
   	next();
 };
