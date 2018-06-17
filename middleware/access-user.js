@@ -4,17 +4,10 @@
 */
 var cookies = require('cookies')
 var config = require('../config')
-var log4js = require('log4js')
-
-var config = require('../config')
+var logger = require('../lib/logger')('middleware/access-user')
 var User = require('../models/User')
 const rules = require('./rules')
 var createError = require('http-errors')
-
-
-//logger
-var logger = log4js.getLogger('middleware/access-user')
-logger.level = config.get('log:level')
 
 
 module.exports = async function(req, res, next) {

@@ -4,24 +4,34 @@ var path = require('path');
 var cookies = require('cookies')
 var logger = require('morgan');
 var engine = require('ejs-layout');
+var logger4 = require('./lib/logger')('http')
 
-
+var config = require('./config')
 
 var accessUser = require('./middleware/access-user')
 var menu = require('./middleware/menu')
 var router = require('./middleware/router')
+
+
 
 const documentsCtrl = require('./controllers/documents')
 const apiCtrl = require('./controllers/api')
 
 var app = express();
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine','ejs');
 app.engine('ejs', engine.__express);
 
-app.use(logger('dev'));
+//logger
+app.use(logger('dev',{
+	stream:{write(str){
+		logger4.info(str)
+	}}
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookies.express())
