@@ -16,9 +16,6 @@ const apiCtrl = require('./controllers/api')
 
 var app = express();
 
-require('express-debug')(app, {/* settings */});
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine','ejs');
