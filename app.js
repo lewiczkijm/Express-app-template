@@ -5,6 +5,8 @@ var cookies = require('cookies')
 var logger = require('morgan');
 var engine = require('ejs-layout');
 
+
+
 var accessUser = require('./middleware/access-user')
 var menu = require('./middleware/menu')
 var router = require('./middleware/router')
@@ -13,6 +15,9 @@ const documentsCtrl = require('./controllers/documents')
 const apiCtrl = require('./controllers/api')
 
 var app = express();
+
+require('express-debug')(app, {/* settings */});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
