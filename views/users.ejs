@@ -1,0 +1,13 @@
+<%+ extend('layouts/standart') %>
+ 
+<%+ section('content') %>
+
+<script type="text/javascript" src="/javascripts/lodash.min.js"></script>
+<script type="text/javascript">
+var users = <%- JSON.stringify(users,"",2) %>
+</script>
+
+<div id="rules"></div>
+<script type="text/javascript" src="/javascripts/control-users.js"></script>
+
+<%+ endSection %>

@@ -1,0 +1,17 @@
+{
+	"mongodb":{
+		"uri":"mongodb://localhost/unicalc",
+		"db":"unicalc",
+		"collections":{
+			"users":"users"
+		}
+	},
+	"http":{
+		"port":3333
+	},
+	"user":{
+		"maxAge":2509600000,
+		"sessionMaxAge":86400000,
+		"sessionName":"India"
+	}
+}

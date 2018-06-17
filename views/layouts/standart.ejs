@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= title %></title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<script type="text/javascript" src="/javascripts/axios.min.js"></script>
+	<script type="text/javascript" src="/javascripts/vue.js"></script>
+	<script type="text/javascript" src="/javascripts/components/modalMsg.js"></script>
+	<script type="text/javascript">
+
+var USER = <%- JSON.stringify(user,'',2) %>
+
+	</script>
+</head>
+<body>
+	<header>
+		<h1><%= title %></h1>
+		<%# Главное менгю приложения #%>
+		<nav>
+			<ul>
+			<% for(var item in menu){ 
+			   	if(!menu.hasOwnProperty(item)) continue
+			   	var element = menu[item]
+			%>
+			   	<li><a href="<%= element.url %>"><%= element.name %></a></li>
+			<% } %>
+			</ul>
+		</nav>
+		<%# Информация о пользователе или вход в систему #%>
+			<div id="user"></div>
+	</header>
+	<%+ yield('content') %>
+	<script type="text/javascript" src="/javascripts/login-user.js"></script>
+</body>
+</html>

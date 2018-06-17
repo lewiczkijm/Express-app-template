@@ -1,0 +1,19 @@
+<%+ extend('layouts/standart') %>
+ 
+<%+ section('content') %>
+
+<p>
+	Здесь можно посмотреть данные вашей учетной записи 
+</p>
+<pre><%- JSON.stringify(user,'',2) %></pre>
+<p>
+	<!-- Панель смены пароля. Работает асинхронно на vue patch /api/user/password -->
+	<div id="updatePassword"></div>
+</p>
+<p>
+	Написать сообщение администратору
+	<!-- Здесь будет блок асинхронной передачи сообщения, продублированный в личном кабинете -->
+	<div id="messages"></div>
+<script type="text/javascript" src="/javascripts/lk.js"></script>
+</p>
+<%+ endSection %>
