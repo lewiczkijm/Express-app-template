@@ -1,6 +1,8 @@
 const rules = require('../middleware/rules.js') 
 var User = require('../models/User')
 
+var admin = require('./admin')
+
 module.exports = {
 	index: {
 		name: "Приложение",
@@ -40,18 +42,7 @@ module.exports = {
 		name: "Пользователи",
 		path: "get /userslist",
 		menu: true,
-		async action(req, res) {
-			options = {}
-			options.path = "/userslist"
-			options.user = req.user.fmtUser()
-			options.users = await User.findAll()
-			options.title = "Пользователи"
-
-			options.menu = req.menu
-
-			options.menu = options.menu.filter((el)=>el.url !== options.path)
-			res.render("users",options)
-		},
+		action: admin.panelUsers,
 		access: rules.access.ADMIN
 	},
 	userMessages: {
