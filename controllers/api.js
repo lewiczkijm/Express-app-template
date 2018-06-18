@@ -1,76 +1,29 @@
 var config = require('../config')
+var logger = require('../lib/logger')('controllers/api')
 const rules = require('../middleware/rules.js') 
 var User = require('../models/User')
-var controlUser = require('./controlUsers')
+
+var controlUser = require('./user')
+var admin = require('./admin')
+
 
 module.exports = {
 	login: {
 		path: "post /login",
-		
-		async action(req, res){
-			let maxAge;
-			let userData;
-			if(req.body.save) maxAge = config.get('user:maxAge')
-			try{
-				userData = await User.login(req.body.login,req.body.password,maxAge)
-			}
-			catch(err){
-				if(err.message === 'User not found' || err.message === 'Password is wrong'){
-					res.status(400).send({message:err.message})
-				}
-				else {
-					console.log(err)
-					res.sendStatus(500)
-				}
-					return
-			}
-
-			res.cookies.set(
-				config.get('user:sessionName'),
-				userData.session,
-				{
-					httpOnly:true,
-					maxAge:maxAge
-				}
-			)
-
-			res.status(200).send(userData.fmtUser())
-		},
-
-		access: rules.access.NOBODY
+		access: rules.access.NOBODY,
+		action: controlUser.login
 	},
 	logout: {
 		path: "get /user/logout",
 		access: rules.access.USER,
 		
-		async action(req,res){
-			req.user.logout()
-			res.cookies.set(
-				config.get('user:sessionName'),
-				'',
-				{httpOnly:true}
-			)
-
-			res.sendStatus(200)
-		}
+		action: controlUser.logout
 	},
 
 	updatePassword: {
 		path: "patch /user/password",
 		access: rules.access.USER,
-		async action(req,res){
-
-			req.user.updatePassword(req.body.oldpass,req.body.newpass).
-			
-			then(result =>{
-				res.sendStatus(200)
-			}).
-
-			catch(err =>{
-				res.status(400).send(err.message)
-			})
-
-		}
+		action: controlUser.updatePassword
 	},
 
 	users:{
