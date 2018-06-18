@@ -17,6 +17,8 @@ var router = require('./middleware/router')
 const documentsCtrl = require('./controllers/documents')
 const apiCtrl = require('./controllers/api')
 
+var models = require('./models/loader')
+
 var app = express();
 
 

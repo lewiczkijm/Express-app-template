@@ -9,7 +9,6 @@ var crypto = require('crypto')
 var ObjectID = require('mongodb').ObjectID
 var config = require('../config')
 var mongo = require('../lib/mongo').then(res => res.collection(config.get('mongodb:collections:users')))
-var MongoCollection = require('./MongoCollection')
 
 
 class User {
